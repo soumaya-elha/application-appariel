@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/reservation.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>reservation</title>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+        <a class="navbar-brand" href="#">photography</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Gallerie</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="">Reservation</a>
+            </li>
+               
+          </ul>
+        </div>  
+      </nav>
+      <%if (json.length > 0) {%> <%for(i in json) {%>
+        <%}%> <%}%>
+    
+    <form id="fo" action="/reservation" method="POST" class="form" style="margin-top: 40px;">
+    
+        <div class="res"> <h2>Reservation </h2> </div>
+        <div class="cont"> <p> <input type="text" placeholder="Entrer votre nom" name="id" value="<%=Number(json[i].id)+1%>" id="nom" style="display: none;"></p>  </div>
+        <div class="cont"> <p> <input type="text" placeholder="Entrer votre nom" name="name" id="nom"></p>  </div>
+        <div class="cont"> <p> <input type="text" placeholder="Entrer votre prénom" name="prenom" id="prenom"></p>  </div>
+        <div class="cont"> <p> <input type="text" placeholder="Enter votre email" name="email" id="email"></p> </div>
+        <div class="cont"> <p> <input type="tel" placeholder="Enter votre numéro de téléphne" name="telphone" id="telphone"></p> </div>
+        <div class="cont"> <p> <input type="text" placeholder="version" name="version" id="version"></p> </div>
+        <!-- <div> <p> <button id= "insc" onclick="valide()">submit</button> </p></div> -->
+        <div ><button id='sub' onclick="valide()"> <a href="http://localhost:3030/submit"></a>submit</button></div>
+    </form> 
+
+
+    <div class="container" style="margin-top: 640px;
+                                  position: relative;">
+                    
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>nom</th>
+              <th>prénom</th>
+              <th>Email</th>
+              <th>téléphne</th>
+              <th>version</th>
+            </tr>
+          </thead>
+          <tbody id="heroesBody"></tbody>
+        </table>
+        <%if (json.length > 0) {%> <%for(i in json) {%>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th><%=json[i].name%></th>
+              <th><%=json[i].prenom%></th>
+              <th><%=json[i].email%></th>
+              <th><%=json[i].telphone%></th>
+              <th><%=json[i].version%></th>
+            </tr>
+          </thead>
+          <tbody id="heroesBody"></tbody>
+        </table>
+        <%}%> <%}%>
+   </div>
+   
+
+            
+    
+    <!-- validation javascript -->
+
+    <script type="text/javascript">
+    function valide(){
+        var nom=document.getElementById("nom").value;
+        var prenom =document.getElementById("prenom").value;
+        var email =document.getElementById("email").value;
+        var telphone =document.getElementById("telphone").value;
+        var version=document.getElementById("version").value;
+
+        var regexnom= /^[a-zA-Z]{3,16}$/;
+        var regexprenom= /^[a-zA-Z]{3,16}$/;
+        var regexemail= /^[a-zA-Z0-9.-]+@[a-z0-9.-]{2,6}.[a-z]{2,4}$/;
+        var regextelphone = /^[0-9]{10}$/;
+        var regexversion = /^[0-9]+[A-Z]{1,4}$/;
+       
+        if( nom=="" || prenom =="" ||  email=="" ||  telphone=="" || version=="") {
+            window.alert("tous les champs doivent etre remplis");
+        }
+        else if(!regexmail.test(email) || !regextelphone.test(telphone)  || !regexversion.test(version) || !regexname.test(nom) || !regexprenom.test(prenom) ){
+    
+                window.alert("respecte les format")
+            }
+
+            else{
+                  window.alert(" nom:"+nom  +" prenom:"+prenom  + "email:"+email  +   "telphone:"+telphone  + "version:"+version);
+            }
+        }
+    </script>
+     
+    
+     <script>
+          $.ajax({
+        method : 'GET',
+        url:'http://localhost:3030/reservation',
+        dataType: 'json'
+    }).done(function(data){
+        console.log(data);
+        $.map(data.companies, function(post ,i){
+            $('#heroesBody').append($("<tr>")
+                    .append($("<td>").append(post.nom))
+                    .append($("<td>").append(post.prenom))
+                    .append($("<td>").append(post.email))
+                    .append($("<td>").append(post.telphone))
+                    .append($("<td>").append(post.version)));
+
+        })
+            // console.log(post.companyName);
+
+
+    });
+     </script>
+
+
+  
+</body>
+</html>
