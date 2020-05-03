@@ -5,6 +5,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
     <link rel="stylesheet" href="css/reservation.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -72,15 +93,80 @@
               <th><%=json[i].email%></th>
               <th><%=json[i].telphone%></th>
               <th><%=json[i].version%></th>
+              <th>
+                <button id="mdf-btn" data-toggle="modal" data-target="#myModal" id="rvn" onclick="get(this)" name="<%= json[i].id %>" > Modifier</button>
+                <button class="buton" id="dlt-btn">
+                <a href="/delete/<%=json[i].id%>" >Supprimer</a>
+                </button>
+              </th>
             </tr>
           </thead>
+          
           <tbody id="heroesBody"></tbody>
         </table>
+        
         <%}%> <%}%>
    </div>
-   
+   <!-- The Modal -->
+  <div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h1 class="modal-title">Edit product</h1>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+                           <form action="/up" method="post">
+         <div class="form-group">
+         	<input type="hidden" id="vv" name="id" value="" >
+                                <label for="exampleInputPassword1">Nom</label>
+                                <input class="form-control"  class="form-control is-valid"name="name" required="on">
+                            </div>
+                
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Prenom</label>
+                                <input class="form-control" class="form-control is-valid" name="prenom" id="title" required="on">
+                            </div>
+                
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Email</label>
+                                <input class="form-control" class="form-control is-valid" name="email" id="author" required="on">
+                            </div>
 
-            
+                            <div class="form-group">
+                              <label for="exampleInputPassword1">Téléphone</label>
+                              <input class="form-control" class="form-control is-valid" name="telphone" id="author" required="on">
+                          </div>
+
+                          <div class="form-group">
+                            <label for="exampleInputPassword1">Version</label>
+                            <input class="form-control" class="form-control is-valid" name="version" id="author" required="on">
+                        </div>
+                
+                             <button type="submit" class="btn btn-danger">Modifier</button>
+        </div>
+               </form>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+   <script>
+    var cc = document.getElementById("vv");
+    function get(ev) {
+      let bn = ev.name;
+      cc.value = bn;
+    }
+  </script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     
     <!-- validation javascript -->
 
