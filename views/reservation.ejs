@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -150,10 +149,7 @@
                              <button type="submit" class="btn btn-danger">Modifier</button>
         </div>
                </form>
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
+     
         
       </div>
     </div>
@@ -198,28 +194,15 @@
         }
     </script>
      
+
+
+
+
+
+
+
     
-     <script>
-          $.ajax({
-        method : 'GET',
-        url:'http://localhost:3030/reservation',
-        dataType: 'json'
-    }).done(function(data){
-        console.log(data);
-        $.map(data.companies, function(post ,i){
-            $('#heroesBody').append($("<tr>")
-                    .append($("<td>").append(post.nom))
-                    .append($("<td>").append(post.prenom))
-                    .append($("<td>").append(post.email))
-                    .append($("<td>").append(post.telphone))
-                    .append($("<td>").append(post.version)));
-
-        })
-            // console.log(post.companyName);
-
-
-    });
-     </script>
+   
 
 
   
